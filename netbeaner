@@ -1,0 +1,26 @@
+#!/bin/sh
+
+#
+# netbeaner - Run in NetBeans a specific file via CLI
+# 
+# Usage:
+#      netbeaner [file_extension]
+#
+# Example:
+#      netbeaner something.php
+#
+# @date   November 25, 2010
+# @author Sonny Gauran <juanesteban.gauran@qspan.com>
+
+NETBEANS="/usr/local/netbeans-dev-201011070000/bin/netbeans"
+if [ $# = 0 ]; then
+    echo "Error: File expected\n"
+    echo "Usage: $0 [file]"
+    exit 1;
+fi
+
+if [ $# = 1 ]; then
+    /bin/sh $NETBEANS $1
+fi
+
+exit 0
