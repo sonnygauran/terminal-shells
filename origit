@@ -1,0 +1,17 @@
+#!/bin/sh
+
+#
+# Origit - Orig Git
+# 
+# Recursively deletes files ending in .orig caused by
+# mergetool (meld) in Ubuntu.
+#
+# Usage:
+#      ./origit
+#
+# @date   November 25, 2010
+# @author Sonny Gauran <juanesteban.gauran@qspan.com>
+
+for file in $(find * -true | grep "\.orig$"); do
+    rm ${file}
+done

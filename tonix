@@ -1,0 +1,34 @@
+#!/bin/sh
+
+#
+# Tonix - To Nix
+# 
+# Recursively converts line endings to unix format given an
+# extension name.
+#
+# Usage:
+#      tonix [file_extension]
+#
+# Example:
+#      tonix php
+#      php files under the current directory will be converted to
+#      unix line-endings.
+#
+# @date   November 25, 2010
+# @author Sonny Gauran <juanesteban.gauran@qspan.com>
+
+if [ $# = 0 ]; then
+    echo "File extension expected"
+fi
+
+if [ $# = 1 ]; then
+    echo "File extension: $1"
+    files=$( find ./ -true | grep ".*\.$1\$")
+    for file in $files; do 
+        echo ${file}
+        vi +':w ++ff=unix' +':q' ${file}
+    done
+fi
+
+echo "Done."
+exit 0

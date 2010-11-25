@@ -1,0 +1,40 @@
+#!/bin/sh
+
+#
+# svn_neol - SVN Native EOL Script
+# 
+# Adds an svn property svn:eol-style to all files ending in the supplied extesion
+#
+# Usage:
+#      svn_neol [file_extension]
+#
+# Example:
+#      svn_neol php
+#      php files under the working directory will be checkout-out next time w/
+#      native line-endings.
+#
+# @date   November 22, 2010
+# @author Sonny Gauran <juanesteban.gauran@qspan.com>
+
+if [ $# = 0 ]; then
+    echo "Error: File extension expected\n"
+    echo "SVN Native EOL Script"
+    echo "Usage: svn_neol [file_extension]"
+    exit 1;
+fi
+
+if [ $# = 1 ]; then
+    # Checks if the current directory is an SVN Repository
+    if [ $( svn info | grep -c "^Path") = 0 ]; then
+        echo "The current directory is not an SVN working copy"
+        exit 2
+    else
+        # Recursively work on the files described by $1 (file_extension)
+        for file in $(find * -true | grep "\.$1\$"); do
+            svn propset svn:eol-style native ${file}
+        done
+        echo "Done."
+    fi
+fi
+
+exit 0
